@@ -12,7 +12,7 @@ namespace AutomatedOnlineStore.TestBase
         public void Init()
         {
             Browser.InitBrowser("FireFox");  
-            Browser.LaunchApplication("http://automationpractice.com/");
+            Browser.LaunchApplication();
         }
 
         [TearDown]

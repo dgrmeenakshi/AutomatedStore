@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Firefox;
@@ -8,10 +9,11 @@ namespace AutomatedOnlineStore.WrapperFactory
 {
     public class Browser
     {
-        private static IWebDriver
-            _driver; // there is only one copy for all the instances of class and static method/classes can't be overriden/inherited
+        private static IWebDriver _driver;
 
-        private static string _url;
+        private static string _url = ConfigurationManager.AppSettings["url"];
+        private static string _browser = ConfigurationManager.AppSettings["browser"];
+
 
         public static IWebDriver Driver
         {
@@ -21,7 +23,7 @@ namespace AutomatedOnlineStore.WrapperFactory
                 {
                     throw
                         new NullReferenceException(
-                            "Webdriver reference is null"); // this method may throw some exception and it can be handled in try/catch block
+                            "Webdriver reference is null"); 
                 }
 
                 return _driver;
@@ -54,7 +56,7 @@ namespace AutomatedOnlineStore.WrapperFactory
             }
         }
 
-        public static  void LaunchApplication(string url)
+        public static  void LaunchApplication()
         {
             Driver.Navigate().GoToUrl(URL);
             Driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromMilliseconds(100);
