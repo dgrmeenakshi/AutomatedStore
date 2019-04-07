@@ -11,7 +11,7 @@ namespace AutomatedOnlineStore.TestBase
         [SetUp]
         public void Init()
         {
-            Browser.InitBrowser("FireFox");  
+            Browser.InitBrowser(Browser.BrowserType);  
             Browser.LaunchApplication();
         }
 

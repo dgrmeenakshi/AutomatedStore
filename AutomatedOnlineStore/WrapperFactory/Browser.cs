@@ -37,6 +37,12 @@ namespace AutomatedOnlineStore.WrapperFactory
             set { _url = value; }
         }
 
+        public static string BrowserType
+        {
+            get { return _browser; }
+            set { _browser = value; }
+        }
+
         public static void InitBrowser(string browserName)
         {
             switch (browserName)
