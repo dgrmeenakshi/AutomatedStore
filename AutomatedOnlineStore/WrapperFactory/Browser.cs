@@ -14,19 +14,13 @@ namespace AutomatedOnlineStore.WrapperFactory
         private static string _url = ConfigurationManager.AppSettings["url"];
         private static string _browser = ConfigurationManager.AppSettings["browser"];
 
+    
 
         public static IWebDriver Driver
         {
             get
             {
-                if (_driver == null)
-                {
-                    throw
-                        new NullReferenceException(
-                            "Webdriver reference is null"); 
-                }
-
-                return _driver;
+               return _driver;
             }
             private set { _driver = value; }
         }
@@ -37,15 +31,10 @@ namespace AutomatedOnlineStore.WrapperFactory
             set { _url = value; }
         }
 
-        public static string BrowserType
-        {
-            get { return _browser; }
-            set { _browser = value; }
-        }
 
-        public static void InitBrowser(string browserName)
+        public static void InitBrowser()
         {
-            switch (browserName)
+            switch (_browser)
             {
                 case "FireFox":
                     Driver = new FirefoxDriver();
@@ -60,14 +49,19 @@ namespace AutomatedOnlineStore.WrapperFactory
                     Driver.Manage().Window.Maximize();
                     break;
             }
+            LaunchApplication();
         }
 
-        public static  void LaunchApplication()
+        public static void LaunchApplication()
         {
             Driver.Navigate().GoToUrl(URL);
-            Driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromMilliseconds(100);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(100);
         }
-         
-        
+        public static void Close()
+        {
+            Driver.Quit();
+        }
+
+
     }
 }

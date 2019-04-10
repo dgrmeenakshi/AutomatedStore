@@ -5,20 +5,20 @@ using NUnit.Framework;
 namespace AutomatedOnlineStore.TestBase
 {
     [TestFixture]
-   public class BaseClass
+    public class BaseClass
     {
 
         [SetUp]
         public void Init()
         {
-            Browser.InitBrowser(Browser.BrowserType);  
-            Browser.LaunchApplication();
+            Browser.InitBrowser();
+           
         }
 
         [TearDown]
         public void CloseApplication()
         {
-           Browser.Driver.Quit();
+            Browser.Close();
         }
 
     }

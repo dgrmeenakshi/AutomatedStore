@@ -12,29 +12,34 @@ namespace AutomatedOnlineStore.PageObjects
             _driver = driver;
         }
 
-        private IWebElement _signIn
+        public IWebElement _signIn
         {
             get { return _driver.FindElement(By.XPath("//a[@class='login']")); }
         }
 
-        private IWebElement _email
+        public IWebElement _email
         {
             get { return _driver.FindElement(By.Id("email")); }
         }
 
-        private IWebElement _password
+        public IWebElement _password
         {
             get { return _driver.FindElement(By.Id("passwd")); }
         }
 
-        private IWebElement _submit
+        public IWebElement _submit
         {
             get { return _driver.FindElement(By.Id("SubmitLogin")); }
         }
 
-        private IWebElement _errorMessage
+        public IWebElement _errorMessage
         {
             get { return _driver.FindElement(By.XPath("//div[@class='alert alert-danger']/ol/li")); }
+        }
+
+        public IWebElement _successMessage
+        {
+            get { return _driver.FindElement(By.XPath("//a[@title='View my customer account']")); }
         }
 
         public void Login(string userName, string passwd)
@@ -45,9 +50,9 @@ namespace AutomatedOnlineStore.PageObjects
             _submit.Submit();
         }
 
-        public string ErrorMessage()
+        public string SuccessMessage()
         {
-            return _errorMessage.Text;
+            return _successMessage.Text;
         }
     }
 }
