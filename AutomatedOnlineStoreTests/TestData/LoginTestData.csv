@@ -1,0 +1,6 @@
+﻿Username,Password,ExpectedResult,RunMode
+meenakshi@gmail.com,meenakshi,meenakshi,y
+meenakshi@gmail.com,ivalidpassword,Authentication failed,n
+ ,meenakshi,An email address required,n
+meenakshi@gmail.com, ,Password is required,n 
+, ,An email address required,n   
