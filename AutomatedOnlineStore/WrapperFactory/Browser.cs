@@ -55,7 +55,7 @@ namespace AutomatedOnlineStore.WrapperFactory
         public static void LaunchApplication()
         {
             Driver.Navigate().GoToUrl(URL);
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(100);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(5000);
         }
         public static void Close()
         {

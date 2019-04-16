@@ -13,8 +13,8 @@ namespace AutomatedOnlineStoreTests.Tests
     [TestFixture]
     public class LoginPageTest : BaseClass
     {
-        private static string _path = ConfigurationManager.AppSettings["path"];
-        [Test,TestCaseSource("GetLoginTestData")]
+        private static readonly string _path = ConfigurationManager.AppSettings["path"];
+        [Test,TestCaseSource(nameof(GetLoginTestData))]
         public void ValidateLogin(string userName, string password, string expectedResult, string isValid)
         {
             var login = new LoginPage(Browser.Driver);
