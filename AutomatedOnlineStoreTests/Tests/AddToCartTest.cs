@@ -21,7 +21,16 @@ namespace AutomatedOnlineStoreTests.Tests
             string actual = cartPage.AddToCartSuccessMessage.Text;
             Assert.IsTrue(actual.Contains("Product successfully added to your shopping cart"));
         }
-
-
+        [Test]
+        public void When_verify_user_can_search_an_item()
+        {
+            var login = new LoginPage(Browser.Driver);
+            login.Login("meenakshi@gmail.com", "meenakshi");
+            var cartPage = new CartPage(Browser.Driver);
+            cartPage.SearchAnItem.SendKeys("dresses");
+            cartPage.SubmitSearch.Submit();
+            string actual = cartPage.SearchListHeading.Text;
+            Assert.IsTrue(actual.ToLower().Contains("dresses"));
+        }
     }
 }
