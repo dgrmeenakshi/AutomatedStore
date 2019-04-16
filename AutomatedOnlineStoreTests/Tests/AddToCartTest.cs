@@ -18,8 +18,9 @@ namespace AutomatedOnlineStoreTests.Tests
             cartPage.MainMenu("Women").Click();
             cartPage.SelectItem("Printed Summer Dress").Click();
             cartPage.AddToCart.Submit();
-            string actual = cartPage.AddToCartSuccessMessage.Text;
-            Assert.IsTrue(actual.Contains("Product successfully added to your shopping cart"));
+            bool found = cartPage.IsItemPresentInCart("Printed Summer Dress");
+            Assert.IsTrue(found, "Item not added in cart");
+
         }
         [Test]
         public void When_verify_user_can_search_an_item()
@@ -27,10 +28,37 @@ namespace AutomatedOnlineStoreTests.Tests
             var login = new LoginPage(Browser.Driver);
             login.Login("meenakshi@gmail.com", "meenakshi");
             var cartPage = new CartPage(Browser.Driver);
-            cartPage.SearchAnItem.SendKeys("dresses");
+            cartPage.SearchItem.SendKeys("dresses");
             cartPage.SubmitSearch.Submit();
             string actual = cartPage.SearchListHeading.Text;
             Assert.IsTrue(actual.ToLower().Contains("dresses"));
+        }
+
+        [Test]
+        public void When_verify_item_can_be_deleted_from_cart()
+        {
+            var login = new LoginPage(Browser.Driver);
+            login.Login("meenakshi@gmail.com", "meenakshi");
+            var cartPage = new CartPage(Browser.Driver);
+            if (cartPage.IsItemPresentInCart("Printed Dress"))
+            {
+                string items = cartPage.NoOfItemsInCart.Text;
+                if (items.Equals("1 Product"))
+                {
+                    cartPage.DeleteItemFromCart("Printed Dress").Click();
+                    Assert.AreEqual("Your shopping cart is empty.", cartPage.EmptyCartMessage.Text);
+                }
+                else
+                {
+                    cartPage.DeleteItemFromCart("Printed Dress").Click();
+                    bool found = cartPage.IsItemPresentInCart("Printed Dress");
+                    Assert.IsTrue(!found);
+                }
+            }
+            else
+            {
+                Assert.Fail("Your shopping Cart is empty");
+            }
         }
     }
 }
