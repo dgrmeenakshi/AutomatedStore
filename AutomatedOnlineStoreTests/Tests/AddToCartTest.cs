@@ -60,5 +60,17 @@ namespace AutomatedOnlineStoreTests.Tests
                 Assert.Fail("Your shopping Cart is empty");
             }
         }
+
+        [Test]
+        public void VerifySecondaryNavigation()
+        {
+            var login = new LoginPage(Browser.Driver);
+            login.Login("meenakshi@gmail.com", "meenakshi");
+            var cartPage = new CartPage(Browser.Driver);
+            cartPage.SubMenu("Dresses", "Casual Dresses").Click();
+            string actualHeading = cartPage.ProductListing.Text;
+            Assert.IsTrue(actualHeading.Contains("Casual Dresses"));
+
+        }
     }
 }

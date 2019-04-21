@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using AutomatedOnlineStore.ElementExtensions;
+using AutomatedOnlineStore.WrapperFactory;
+using OpenQA.Selenium;
 
 namespace AutomatedOnlineStore.PageObjects
 {
@@ -23,10 +25,20 @@ namespace AutomatedOnlineStore.PageObjects
 
         public IWebElement SearchListHeading => _driver.FindElement(By.XPath("//span[@class='lighter']"));
 
+        public IWebElement NoOfItemsInCart => _driver.FindElement(By.XPath("//span[@id='summary_products_quantity']"));
+
+        public IWebElement ProductListing => _driver.FindElement(By.XPath("//h1[@class='page-heading product-listing']/span"));
+        public IWebElement EmptyCartMessage => _driver.FindElement(By.XPath("//p[@class='alert alert-warning']"));
         public IWebElement MainMenu(string primaryOption)
         {
             return _driver.FindElement(By.XPath(mainMainBefore + primaryOption + "']"));
 
+        }
+        public IWebElement SubMenu(string primaryOption, string secondaryOption)
+        {
+            var mainMain = MainMenu(primaryOption);
+            mainMain.Hover(Browser.Driver);
+            return _driver.FindElement(By.XPath(mainMainBefore + primaryOption + "']/following-sibling::ul//li/a[@title='" + secondaryOption + "']"));
         }
 
         public IWebElement SelectItem(string itemName)
@@ -40,9 +52,6 @@ namespace AutomatedOnlineStore.PageObjects
                                                 "')]//following::td[5]/div/a[@title='Delete']"));
         }
 
-        public IWebElement NoOfItemsInCart => _driver.FindElement(By.XPath("//span[@id='summary_products_quantity']"));
-
-        public IWebElement EmptyCartMessage => _driver.FindElement(By.XPath("//p[@class='alert alert-warning']"));
         public bool IsItemPresentInCart(string itemName)
         {
 
